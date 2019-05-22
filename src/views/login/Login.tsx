@@ -19,11 +19,11 @@ export class Login extends React.Component<RouteComponentProps, LoginState> {
     };
   
     attemptLogin = async (event: any) => {
-        const result = checkPassword(this.state.username, this.state.password);
+        const result = await checkPassword(this.state.username, this.state.password);
 
         if (result) {
+            await performLogin(this.state.username);
             this.props.history.push("/lobby");
-            performLogin(this.state.username);
         }
         else {
             this.setState({ error: "Invalid login" });
@@ -31,11 +31,12 @@ export class Login extends React.Component<RouteComponentProps, LoginState> {
     }
 
     attemptRegistration = async (event: any) => {
-        const result = checkAccountAvailable(this.state.username);
+        const result = await checkAccountAvailable(this.state.username);
 
         if (result) {
+            await registerAccount(this.state.username, this.state.password);
+            await performLogin(this.state.username);
             this.props.history.push("/lobby");
-            registerAccount(this.state.username, this.state.password);
         }
         else {
             this.setState({ error: "Account taken" });

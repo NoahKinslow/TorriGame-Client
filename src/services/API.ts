@@ -3,25 +3,32 @@ import { apiCall } from "./Util";
 
 export async function checkPassword(usernameString: String, passwordString: String) {
     const response = await apiCall(
-        "GET",
+        "POST",
         "/login",
         false,
-        { usernameString, passwordString }
+        { username: usernameString, password: passwordString }
     );
 
+    if (response.status == 404) {
+        return false;
+    }
     let responseBody = await response.json();
+    console.log(responseBody);
     return responseBody.match;
 }
 
 export async function checkAccountAvailable(usernameString: String) {
     const response = await apiCall(
-        "GET",
+        "POST",
         "/register",
         false,
-        { usernameString}
+        { "username" : usernameString }
     );
-
+    if (response.status == 404) {
+        return false;
+    }
     let responseBody = await response.json();
+    console.log(responseBody);
     return responseBody.available;
 }
 
@@ -30,6 +37,12 @@ export async function registerAccount(usernameString: String, passwordString: St
         "POST",
         `/users/${usernameString}`,
         false,
-        { passwordString }
+        { "password" : passwordString }
     );
+    if (response.status == 404) {
+
+    }
+    let responseBody = await response.json();
+    console.log(responseBody);
+    return responseBody;
 }

@@ -4,16 +4,16 @@ import { clearLoginToken } from '../../services/Session';
 
 
 
-export class LogoutButton extends React.Component<RouteComponentProps> {
+function logoutButton({ history }: RouteComponentProps) {
     
-    logout = (evt: any) =>  {
+    function logout() {
         clearLoginToken();
-        this.props.history.push("/login");
+        history.push("/login");
     }
 
-    render() {
-        return (
-            <input type="button" value="Logout" onClick={this.logout}/>
-        ); 
-    } 
+    return (
+        <input type="button" value="Logout" onClick={logout}/>
+    );
 }
+
+export const LogoutButton = withRouter(logoutButton);

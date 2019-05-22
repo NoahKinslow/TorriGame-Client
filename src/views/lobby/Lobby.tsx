@@ -1,23 +1,32 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { LogoutButton } from '../logoutButton/LogoutButton';
 
 interface LobbyState {
-    //lobbies: Lobby[];
+    
 }
 
-export class Lobby extends React.Component<RouteComponentProps, LobbyState> {
-    
-    state = { 
-        //lobbies: Lobby[]
-    };
+interface LobbyProps {
+    opponentName: String;
+    opponentID: String;
+    myPlayerID: String;
+}
+
+export class Lobby extends React.Component<LobbyProps, LobbyState> {
+
+    constructor(props: LobbyProps) {
+        super(props);
+    }
+
+    connectToLobby() {
+
+    }
   
     render() {
       return (
-        <div>
-            {LogoutButton}
-        </div>
+        <>
+          <tr>
+              <td onClick={this.connectToLobby}>{this.props.opponentName}</td>
+          </tr>
+        </>
       );
     }
 }
-  

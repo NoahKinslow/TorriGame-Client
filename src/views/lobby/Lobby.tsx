@@ -1,4 +1,6 @@
 import React from 'react';
+import { startAGame, loadAGame } from '../../services/API';
+import { getLoginToken } from '../../services/Session';
 
 interface LobbyState {
     
@@ -16,8 +18,13 @@ export class Lobby extends React.Component<LobbyProps, LobbyState> {
         super(props);
     }
 
-    connectToLobby() {
-
+    connectToLobby = async (event: any) =>  {
+        let newGame = await startAGame(getLoginToken() as String, this.props.opponentName);
+        if (newGame) {
+            let gameID = newGame.gameID;
+            // Send user to game page
+            
+        }
     }
   
     render() {

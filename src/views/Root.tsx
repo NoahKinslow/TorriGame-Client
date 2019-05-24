@@ -4,6 +4,7 @@ import { getLoginToken } from '../services/Session';
 import { Login } from './login/Login';
 import { Lobbies } from './lobby/Lobbies';
 import { NotFound } from './notFound/notFound';
+import { GamePage } from './game/GamePage';
 
 export function Root() {
     return (
@@ -11,6 +12,7 @@ export function Root() {
             <Switch>
                 <Route path="/login" component={Login}/>
                 <Route path="/lobby" exact render={requireLogin(Lobbies)}/>
+                <Route path="/game/:gameID" exact component={GamePage}/>
                 <Route component={NotFound}/>
             </Switch>
         </Router>
